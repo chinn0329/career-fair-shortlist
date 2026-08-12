@@ -160,34 +160,6 @@ function App() {
 
         {/* RIGHT COLUMN: roles + results */}
         <div>
-          <section>
-            <h2>Available Career Fair Roles</h2>
-            {roles.map((role) => (
-              <div className="role-ref" key={role.id}>
-                <h3>
-                  <span className="role-id">{role.id}</span>
-                  {role.title}
-                </h3>
-                <p>
-                  <strong>Allowed Branches:</strong> {role.allowedBranches.join(", ")}
-                </p>
-                <p>
-                  <strong>Minimum CGPA:</strong> {role.minimumCgpa}
-                </p>
-                <p>
-                  <strong>Graduation Years:</strong>{" "}
-                  {role.allowedGraduationYears.join(", ")}
-                </p>
-                <p>
-                  <strong>Maximum Active Backlogs:</strong> {role.maximumActiveBacklogs}
-                </p>
-                <p>
-                  <strong>Required Skills:</strong> {role.requiredSkills.join(", ")}
-                </p>
-              </div>
-            ))}
-          </section>
-
           {evaluationResult !== null && (
             <section>
               <h2>Evaluation Results</h2>
@@ -234,6 +206,33 @@ function App() {
               })}
             </section>
           )}
+          <section>
+            <h2>Available Career Fair Roles</h2>
+            {roles.map((role) => (
+              <div className="role-ref" key={role.id}>
+                <h3>
+                  <span className="role-id">{role.id}</span>
+                  {role.title}
+                </h3>
+                <p>
+                  <strong>Allowed Branches:</strong> {role.allowedBranches.join(", ")}
+                </p>
+                <p>
+                  <strong>Minimum CGPA:</strong> {role.minimumCgpa}
+                </p>
+                <p>
+                  <strong>Graduation Years:</strong>{" "}
+                  {role.allowedGraduationYears.join(", ")}
+                </p>
+                <p>
+                  <strong>Maximum Active Backlogs:</strong> {role.maximumActiveBacklogs}
+                </p>
+                <p>
+                  <strong>Required Skills:</strong> {role.requiredSkills.join(", ")}
+                </p>
+              </div>
+            ))}
+          </section>
         </div>
       </div>
     </div>
