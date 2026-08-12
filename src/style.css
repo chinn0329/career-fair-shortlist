@@ -1,0 +1,402 @@
+/* ============================================================
+   Career Fair Eligibility Shortlist — styles.css
+   ============================================================ */
+
+:root {
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --ink: #1f2422;
+  --muted: #6b7370;
+  --border: #e2dfd8;
+
+  --eligible: #1c7c54;
+  --eligible-bg: #eaf5ef;
+  --ineligible: #b3452c;
+  --ineligible-bg: #fbeee9;
+
+  --accent: #1f2422;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+
+  --shadow-sm: 0 1px 2px rgba(31, 36, 34, 0.06);
+  --shadow-md: 0 4px 16px rgba(31, 36, 34, 0.08);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto,
+    Helvetica, Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 32px 24px 64px;
+}
+
+/* ------------------------------------------------------------
+   Header
+   ------------------------------------------------------------ */
+
+.app header {
+  margin-bottom: 32px;
+}
+
+.app header h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+}
+
+.app header p {
+  color: var(--muted);
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ------------------------------------------------------------
+   Layout: two-column on desktop
+   ------------------------------------------------------------ */
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 860px) {
+  .layout {
+    grid-template-columns: 380px 1fr;
+    align-items: start;
+  }
+}
+
+/* ------------------------------------------------------------
+   Section / card shell
+   ------------------------------------------------------------ */
+
+section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+section h2 {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+/* ------------------------------------------------------------
+   Form fields
+   ------------------------------------------------------------ */
+
+.field {
+  margin-bottom: 14px;
+}
+
+.field:last-child {
+  margin-bottom: 0;
+}
+
+.field label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.field input {
+  width: 100%;
+  padding: 9px 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-family: inherit;
+  color: var(--ink);
+  background: var(--surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.field input:focus-visible {
+  outline: none;
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(31, 36, 34, 0.1);
+}
+
+.field small {
+  display: block;
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin-top: 4px;
+}
+
+/* ------------------------------------------------------------
+   Buttons
+   ------------------------------------------------------------ */
+
+.actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+button {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary {
+  background: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+
+.btn-secondary:hover {
+  border-color: var(--ink);
+}
+
+/* ------------------------------------------------------------
+   Validation errors
+   ------------------------------------------------------------ */
+
+.validation-panel {
+  border-color: var(--ineligible);
+  background: var(--ineligible-bg);
+}
+
+.validation-panel h2 {
+  color: var(--ineligible);
+}
+
+.validation-panel ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--ineligible);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.validation-panel li {
+  margin-bottom: 4px;
+}
+
+/* ------------------------------------------------------------
+   Fixed role requirements (read-only reference list)
+   ------------------------------------------------------------ */
+
+.role-ref {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  margin-bottom: 10px;
+}
+
+.role-ref:last-child {
+  margin-bottom: 0;
+}
+
+.role-ref h3 {
+  font-size: 0.85rem;
+  margin: 0 0 8px;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.role-ref h3 .role-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.role-ref p {
+  margin: 3px 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.role-ref p strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ------------------------------------------------------------
+   Results summary counts
+   ------------------------------------------------------------ */
+
+.counts {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.count-chip {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.count-chip .num {
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1.2;
+}
+
+.count-chip.eligible {
+  background: var(--eligible-bg);
+  color: var(--eligible);
+}
+
+.count-chip.ineligible {
+  background: var(--ineligible-bg);
+  color: var(--ineligible);
+}
+
+/* ------------------------------------------------------------
+   Result cards — signature element
+   left-edge status bar + monospace status tag
+   ------------------------------------------------------------ */
+
+.result-card {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px 14px 18px;
+  margin-bottom: 10px;
+  background: var(--surface);
+}
+
+.result-card:last-child {
+  margin-bottom: 0;
+}
+
+.result-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.result-card.eligible::before {
+  background: var(--eligible);
+}
+
+.result-card.ineligible::before {
+  background: var(--ineligible);
+}
+
+.result-card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.result-card-head h3 {
+  margin: 0;
+  font-size: 0.92rem;
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.result-card-head .role-id {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.status-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+.status-tag.eligible {
+  background: var(--eligible-bg);
+  color: var(--eligible);
+}
+
+.status-tag.ineligible {
+  background: var(--ineligible-bg);
+  color: var(--ineligible);
+}
+
+.failure-reasons {
+  margin: 8px 0 0;
+  padding-left: 16px;
+  font-size: 0.78rem;
+  color: var(--ineligible);
+  font-family: var(--font-mono);
+}
+
+.failure-reasons li {
+  margin-bottom: 3px;
+}
+
+/* ------------------------------------------------------------
+   Reduced motion
+   ------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
