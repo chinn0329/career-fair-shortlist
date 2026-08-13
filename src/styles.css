@@ -265,6 +265,104 @@ button:focus-visible {
 }
 
 /* ------------------------------------------------------------
+   Results header + view toggle
+   ------------------------------------------------------------ */
+
+.results-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.results-head h2 {
+  margin: 0;
+}
+
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.toggle-btn {
+  background: var(--surface);
+  color: var(--muted);
+  border: none;
+  border-radius: 0;
+  padding: 6px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.toggle-btn + .toggle-btn {
+  border-left: 1px solid var(--border);
+}
+
+.toggle-btn.active {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+/* ------------------------------------------------------------
+   Compact card grid
+   ------------------------------------------------------------ */
+
+.compact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.compact-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px 10px 14px;
+  background: var(--surface);
+}
+
+.compact-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.compact-card.eligible::before {
+  background: var(--eligible);
+}
+
+.compact-card.ineligible::before {
+  background: var(--ineligible);
+}
+
+.compact-role-id {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.compact-role-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.compact-card .status-tag {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* ------------------------------------------------------------
    Results summary counts
    ------------------------------------------------------------ */
 

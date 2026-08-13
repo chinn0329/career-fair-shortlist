@@ -5,7 +5,7 @@ import {
   evaluateAllRoles
 } from "./eligibility.js";
 import { defaultStudent, roles } from "./data.js";
-import "./style.css";
+import "./styles.css";
 
 function App() {
   const getDefaultFormValues = () => ({
@@ -19,6 +19,8 @@ function App() {
   const [formValues, setFormValues] = useState(getDefaultFormValues);
   const [validationErrors, setValidationErrors] = useState([]);
   const [evaluationResult, setEvaluationResult] = useState(null);
+  // NEW: purely a presentation toggle, does not affect evaluationResult
+  const [viewMode, setViewMode] = useState("detailed"); // "detailed" | "compact"
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -158,11 +160,31 @@ function App() {
           )}
         </div>
 
-        {/* RIGHT COLUMN: roles + results */}
+        {/* RIGHT COLUMN: results (if any) + roles reference */}
         <div>
           {evaluationResult !== null && (
             <section>
-              <h2>Evaluation Results</h2>
+              <div className="results-head">
+                <h2>Evaluation Results</h2>
+
+                {/* NEW: view toggle — purely presentational, same evaluationResult */}
+                <div className="view-toggle" role="group" aria-label="Results view">
+                  <button
+                    type="button"
+                    className={viewMode === "detailed" ? "toggle-btn active" : "toggle-btn"}
+                    onClick={() => setViewMode("detailed")}
+                  >
+                    Detailed
+                  </button>
+                  <button
+                    type="button"
+                    className={viewMode === "compact" ? "toggle-btn active" : "toggle-btn"}
+                    onClick={() => setViewMode("compact")}
+                  >
+                    Compact
+                  </button>
+                </div>
+              </div>
 
               <div className="counts">
                 <div className="count-chip eligible">
@@ -175,37 +197,64 @@ function App() {
                 </div>
               </div>
 
-              {evaluationResult.results.map((result) => {
-                const isEligible = result.status === "ELIGIBLE";
-                return (
-                  <div
-                    key={result.roleId}
-                    className={`result-card ${isEligible ? "eligible" : "ineligible"}`}
-                  >
-                    <div className="result-card-head">
-                      <h3>
-                        <span className="role-id">{result.roleId}</span>
-                        {result.roleTitle}
-                      </h3>
-                      <span
-                        className={`status-tag ${isEligible ? "eligible" : "ineligible"}`}
-                      >
-                        {result.status}
-                      </span>
-                    </div>
+              {viewMode === "detailed" ? (
+                evaluationResult.results.map((result) => {
+                  const isEligible = result.status === "ELIGIBLE";
+                  return (
+                    <div
+                      key={result.roleId}
+                      className={`result-card ${isEligible ? "eligible" : "ineligible"}`}
+                    >
+                      <div className="result-card-head">
+                        <h3>
+                          <span className="role-id">{result.roleId}</span>
+                          {result.roleTitle}
+                        </h3>
+                        <span
+                          className={`status-tag ${isEligible ? "eligible" : "ineligible"}`}
+                        >
+                          {result.status}
+                        </span>
+                      </div>
 
-                    {!isEligible && result.failureReasons.length > 0 && (
-                      <ul className="failure-reasons">
-                        {result.failureReasons.map((reason, index) => (
-                          <li key={`${result.roleId}-${reason}-${index}`}>{reason}</li>
-                        ))}
-                      </ul>
-                    )}
-                  </div>
-                );
-              })}
+                      {!isEligible && result.failureReasons.length > 0 && (
+                        <ul className="failure-reasons">
+                          {result.failureReasons.map((reason, index) => (
+                            <li key={`${result.roleId}-${reason}-${index}`}>{reason}</li>
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <div className="compact-grid">
+                  {evaluationResult.results.map((result) => {
+                    const isEligible = result.status === "ELIGIBLE";
+                    return (
+                      <div
+                        key={result.roleId}
+                        className={`compact-card ${isEligible ? "eligible" : "ineligible"}`}
+                      >
+                        <span className="compact-role-id">{result.roleId}</span>
+                        <span className="compact-role-title">{result.roleTitle}</span>
+                        <span
+                          className={`status-tag ${isEligible ? "eligible" : "ineligible"}`}
+                        >
+                          {isEligible
+                            ? "ELIGIBLE"
+                            : `${result.failureReasons.length} ISSUE${
+                                result.failureReasons.length === 1 ? "" : "S"
+                              }`}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
             </section>
           )}
+
           <section>
             <h2>Available Career Fair Roles</h2>
             {roles.map((role) => (
